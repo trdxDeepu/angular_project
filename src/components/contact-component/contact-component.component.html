@@ -1,0 +1,94 @@
+<main class="bg-gray-100 flex items-center justify-center h-screen">
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
+    <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500 mb-6">
+      Template Driven Form
+    </h1>
+
+    <form #regForm="ngForm" (ngSubmit)="onSubmit(regForm)">
+      <!-- Name Field -->
+      <div class="flex flex-col mb-4">
+        <label for="name" class="text-left text-lg font-bold text-gray-700">Name</label>
+        <input
+          type="text"
+          name="name"
+          ngModel
+          required
+          #name="ngModel"
+          placeholder="Enter name"
+          class="border px-4 py-2 rounded-lg focus:outline-none"
+          [ngClass]="{'border-red-500': name.invalid && name.touched, 'border-gray-300': !(name.invalid && name.touched)}"
+        />
+        <div class="text-red-500 text-left mt-1" *ngIf="name.invalid && name.touched">
+          <span *ngIf="name.errors?.['required']">Name is required.</span>
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="flex flex-col mb-4">
+        <label for="email" class="text-left text-lg font-bold text-gray-700">Email</label>
+        <input
+          type="email"
+          name="email"
+          ngModel
+          required
+          pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          #email="ngModel"
+          placeholder="Enter email"
+          class="border px-4 py-2 rounded-lg focus:outline-none"
+          [ngClass]="{'border-red-500': email.invalid && email.touched, 'border-gray-300': !(email.invalid && email.touched)}"
+        />
+        <div class="text-red-500 text-left mt-1" *ngIf="email.invalid && email.touched">
+          <span *ngIf="email.errors?.['required']">Email is required.</span>
+          <span *ngIf="email.errors?.['pattern']">Please enter a valid email address.</span>
+        </div>
+      </div>
+
+      <!-- Phone Field -->
+      <div class="flex flex-col mb-4">
+        <label for="phone" class="text-left text-lg font-bold text-gray-700">Phone</label>
+        <input
+          type="text"
+          name="phone"
+          ngModel
+          required
+          pattern="^[0-9]{10}$"
+          #phone="ngModel"
+          placeholder="Enter phone"
+          class="border px-4 py-2 rounded-lg focus:outline-none"
+          [ngClass]="{'border-red-500': phone.invalid && phone.touched, 'border-gray-300': !(phone.invalid && phone.touched)}"
+        />
+        <div class="text-red-500 text-left mt-1" *ngIf="phone.invalid && phone.touched">
+          <span *ngIf="phone.errors?.['required']">Phone is required.</span>
+          <span *ngIf="phone.errors?.['pattern']">Phone must be 10 digits long.</span>
+        </div>
+      </div>
+
+      <!-- Message Field -->
+      <div class="flex flex-col mb-6">
+        <label for="message" class="text-left text-lg font-bold text-gray-700">Message</label>
+        <textarea
+          name="message"
+          ngModel
+          required
+          #message="ngModel"
+          placeholder="Enter message"
+          class="border px-4 py-2 rounded-lg focus:outline-none"
+          rows="4"
+          [ngClass]="{'border-red-500': message.invalid && message.touched, 'border-gray-300': !(message.invalid && message.touched)}"
+        ></textarea>
+        <div class="text-red-500 text-left mt-1" *ngIf="message.invalid && message.touched">
+          <span *ngIf="message.errors?.['required']">Message is required.</span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="w-full px-4 py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+        [disabled]="!regForm.valid"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</main>
